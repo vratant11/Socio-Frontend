@@ -30,7 +30,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  const isNonMobileScreens = useMediaQuery("(min-width: 1000px");
+  const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
   const dark = theme.palette.neutral.dark;
@@ -39,12 +40,13 @@ const Navbar = () => {
   const alt = theme.palette.background.alt;
 
   const fullName = `${user.firstName} ${user.lastName}`;
+
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
       <FlexBetween gap="1.75rem">
         <Typography
           fontWeight="bold"
-          fontSize="clamp(1rem,2rem,2.25rem)"
+          fontSize="clamp(1rem, 2rem, 2.25rem)"
           color="primary"
           onClick={() => navigate("/home")}
           sx={{
@@ -54,7 +56,7 @@ const Navbar = () => {
             },
           }}
         >
-          SocioPedia
+          Sociopedia
         </Typography>
         {isNonMobileScreens && (
           <FlexBetween
@@ -70,6 +72,8 @@ const Navbar = () => {
           </FlexBetween>
         )}
       </FlexBetween>
+
+      {/* DESKTOP NAV */}
       {isNonMobileScreens ? (
         <FlexBetween gap="2rem">
           <IconButton onClick={() => dispatch(setMode())}>
@@ -90,11 +94,11 @@ const Navbar = () => {
                 width: "150px",
                 borderRadius: "0.25rem",
                 p: "0.25rem 1rem",
-                "&.MuiSvgIcon-root": {
+                "& .MuiSvgIcon-root": {
                   pr: "0.25rem",
                   width: "3rem",
                 },
-                "&.MuiSelect-select:focus": {
+                "& .MuiSelect-select:focus": {
                   backgroundColor: neutralLight,
                 },
               }}
@@ -115,6 +119,7 @@ const Navbar = () => {
         </IconButton>
       )}
 
+      {/* MOBILE NAV */}
       {!isNonMobileScreens && isMobileMenuToggled && (
         <Box
           position="fixed"
@@ -126,6 +131,7 @@ const Navbar = () => {
           minWidth="300px"
           backgroundColor={background}
         >
+          {/* CLOSE ICON */}
           <Box display="flex" justifyContent="flex-end" p="1rem">
             <IconButton
               onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
@@ -134,13 +140,18 @@ const Navbar = () => {
             </IconButton>
           </Box>
 
+          {/* MENU ITEMS */}
           <FlexBetween
             display="flex"
+            flexDirection="column"
             justifyContent="center"
             alignItems="center"
             gap="3rem"
           >
-            <IconButton onClick={() => dispatch(setMode())}>
+            <IconButton
+              onClick={() => dispatch(setMode())}
+              sx={{ fontSize: "25px" }}
+            >
               {theme.palette.mode === "dark" ? (
                 <DarkMode sx={{ fontSize: "25px" }} />
               ) : (
@@ -158,11 +169,11 @@ const Navbar = () => {
                   width: "150px",
                   borderRadius: "0.25rem",
                   p: "0.25rem 1rem",
-                  "&.MuiSvgIcon-root": {
+                  "& .MuiSvgIcon-root": {
                     pr: "0.25rem",
                     width: "3rem",
                   },
-                  "&.MuiSelect-select:focus": {
+                  "& .MuiSelect-select:focus": {
                     backgroundColor: neutralLight,
                   },
                 }}
